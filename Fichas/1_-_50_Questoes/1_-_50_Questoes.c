@@ -290,9 +290,113 @@ void ex12() {
   char input[SIZE];
   printf("Word:\n");
   scanf("%s", input);
+  // fgets(input, sizeof(input), stdin);
   strnov(input);
-  printf("%s", input);
+  printf("%s\n", input);
 }
+
+/* -------------- 13---------------- */
+void truncW(char t[], int n) {
+  if (!t)
+    return;
+  int i = 0, j = 0, count = 0;
+
+  while (t[i] != '\0') {
+    if (t[i] == ' ') {
+      count = 0;
+      i++;
+      t[j++] = ' ';
+    } else {
+      if (count < n) {
+        t[j++] = t[i++];
+        count++;
+      } else {
+        i++;
+      }
+    }
+  }
+
+  t[j] = '\0';
+}
+
+void ex13() {
+  printf("Example\n");
+  char s1[SIZE] = "a   bb ccccccccccccc d";
+  printf("s1: %s\n", s1);
+  truncW(s1, 1);
+  printf("s1: %s||\n", s1);
+
+  char input[SIZE];
+  printf("Word:\n");
+  scanf("%s", input);
+  unsigned int number = 0;
+  printf("Number:\n");
+  scanf("%u", &number);
+  truncW(input, number);
+  printf("%s\n", input);
+}
+
+/* -------------- 14 ---------------- */
+char charMaisfreq(char s[]) {
+  char max = '\0';
+  unsigned int max_count = 0;
+  int i, j;
+  for (i = 0; s[i] != '\0'; i++) {
+    unsigned int count = 0;
+    for (j = 0; s[j] != '\0'; j++) {
+      if (s[j] == s[i])
+        count++;
+    }
+    if (max_count < count) {
+      max_count = count;
+      max = s[i];
+    }
+  }
+  return max;
+}
+
+void ex14() {
+  printf("Example\n");
+  char s1[SIZE] = "a   bb ccccccccccccc d";
+  printf("s1: %s\n", s1);
+  printf("%c\n", charMaisfreq(s1));
+
+  char input[SIZE];
+  printf("Word:\n");
+  scanf("%s", input);
+  printf("%c\n", charMaisfreq(input));
+}
+
+/* -------------- 15 ---------------- */
+int iguaisConsecutivos(char s[]) {
+  if (!s || s[0] == '\0')
+    return 0;
+
+  int max = 0, count = 1;
+  char last = s[0];
+  int i;
+  for (i = 1; s[i] != '\0'; i++) {
+    if (s[i] == last) {
+      count++;
+    } else {
+      if (max < count)
+        max = count;
+      last = s[i];
+      count = 1;
+    }
+  }
+  if (max < count)
+    max = count;
+  return max;
+}
+
+void ex15() {
+  char input[SIZE];
+  printf("Word:\n");
+  scanf("%s", input);
+  printf("Iguais consecutivos: %d\n", iguaisConsecutivos(input));
+}
+
 /* -------------- main ---------------- */
 int main(void) {
   exec_menu();

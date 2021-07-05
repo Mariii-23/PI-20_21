@@ -29,9 +29,12 @@ void show_menu_11_20() {
   printf("0.  Go back\n");
   printf("11. Inverte um string\n");
   printf("12. Retira todas as vogais de uma string\n");
-  printf("13. \n");
-  printf("14. \n");
-  printf("15. \n");
+  printf("13. Dado um texto t com várias palavras (as palavras estão separadas "
+         "em t por um ou mais espaços) e um inteiro n, trunca todas as "
+         "palavras de forma a terem no máximo n caracteres.\n");
+  printf("14. Determinar o caracter mais frequente numa dada string\n");
+  printf("15. Determinar o máximo de caracter iguais consecutivos numa dada "
+         "string\n");
   printf("16. \n");
   printf("17. \n");
   printf("18. \n");
@@ -140,10 +143,13 @@ void exec_questions_11_20(int option) {
     ex12();
     break;
   case 13:
+    ex13();
     break;
   case 14:
+    ex14();
     break;
   case 15:
+    ex15();
     break;
   case 16:
     break;
