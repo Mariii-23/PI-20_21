@@ -1,8 +1,10 @@
 #include <stdbool.h> // boolean
 #include <stdio.h>
 #include <stdlib.h> // malloc
+#include <string.h>
 
 #include "menu.h"
+#define SIZE 1024
 
 unsigned int read_unsigned_int() {
   printf("Introduza o número a ser analisado: ");
@@ -237,7 +239,6 @@ char *my_strstr(char s1[], char s2[]) {
   }
   return NULL;
 }
-#define SIZE 1024
 // so da com palavras
 // falta por a receber strings
 void ex10() {
@@ -250,6 +251,48 @@ void ex10() {
   printf("%s\n", res);
 }
 
+/* -------------- 11 ---------------- */
+void strrev(char s[]) {
+  int len = strlen(s) - 1, mean = len / 2;
+  char aux;
+  int i;
+  for (i = 0; i <= mean; i++) {
+    aux = s[i];
+    s[i] = s[len - i];
+    s[len - i] = aux;
+  }
+}
+
+void ex11() {
+  char input[SIZE];
+  printf("Word:\n");
+  scanf("%s", input);
+  strrev(input);
+  printf("%s", input);
+}
+
+/* -------------- 12 ---------------- */
+void strnov(char s[]) {
+  if (!s)
+    return;
+  int j = 0;
+  for (int i = 0; s[i] != '\0'; i++) {
+    if (s[i] != 'a' && s[i] != 'A' && s[i] != 'e' && s[i] != 'E' &&
+        s[i] != 'i' && s[i] != 'I' && s[i] != 'o' && s[i] != 'O' &&
+        s[i] != 'u' && s[i] != 'U') {
+      s[j++] = s[i];
+    }
+  }
+  s[j] = '\0';
+}
+
+void ex12() {
+  char input[SIZE];
+  printf("Word:\n");
+  scanf("%s", input);
+  strnov(input);
+  printf("%s", input);
+}
 /* -------------- main ---------------- */
 int main(void) {
   exec_menu();

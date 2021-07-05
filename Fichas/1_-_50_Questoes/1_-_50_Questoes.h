@@ -11,5 +11,7 @@ void ex7();
 void ex8();
 void ex9();
 void ex10();
+void ex11();
+void ex12();
 
 #endif // 1_-_50_QUESTOES_H_
