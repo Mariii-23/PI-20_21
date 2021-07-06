@@ -57,21 +57,24 @@ void show_menu_21_30() {
   printf("23. Testa se uma dada palavra é palíndrome\n");
   printf("24. Elimina de uma dada string todos os caracteres sucessivos.\n");
   printf("25. Elimina de uma dada string todos os espaços sucessivos.\n");
-  printf("26. \n");
+  printf("26. Insere um elemento num vetor ordenado\n");
   printf("27. \n");
-  printf("28. \n");
-  printf("29. \n");
-  printf("30. \n");
+  printf(
+      "28. Verifica se um dado array é crescente entre duas posições dadas\n");
+  printf("29. Retira todos os elementos negativos de um dado array\n");
+  printf("30. Calcula o elementos menos frequente num dado array\n");
   printf("-------------------------------------------------\n");
 }
 
 void show_menu_31_40() {
   printf("\n\n--------------------MENU-------------------------\n");
   printf("0.  Go back\n");
-  printf("31. \n");
-  printf("32. \n");
-  printf("33. \n");
-  printf("34. \n");
+  printf("31. Calcula o elementos mais frequente num dado array\n");
+  printf("32. Calcula o comprimento da maior sequência crescente de um dado "
+         "array\n");
+  printf("33. Dado um determinado array, elimina elementos repetidos\n");
+  printf(
+      "34. Dado um determinado array ordenado, elimina elementos repetidos\n");
   printf("35. \n");
   printf("36. \n");
   printf("37. \n");
@@ -198,14 +201,18 @@ void exec_questions_21_30(int option) {
     ex25();
     break;
   case 26:
+    ex26();
     break;
   case 27:
     break;
   case 28:
+    ex28();
     break;
   case 29:
+    ex29();
     break;
   case 30:
+    ex30();
     break;
   default:
     printf("Opcao invalida\n");
@@ -218,12 +225,16 @@ void exec_questions_31_40(int option) {
     printf("Exit sucedd\n");
     break;
   case 31:
+    ex31();
     break;
   case 32:
+    ex32();
     break;
   case 33:
+    ex33();
     break;
   case 34:
+    ex34();
     break;
   case 35:
     break;

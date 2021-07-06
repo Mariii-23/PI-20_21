@@ -13,6 +13,23 @@ unsigned int read_unsigned_int() {
   return input;
 }
 
+int *read_array(int *n) {
+  printf("Número do comprimento\n");
+  *n = read_unsigned_int();
+  int *arr = (int *)malloc(SIZE * sizeof(int));
+  printf("Introduza os elementos\n");
+  for (int i = 0; i < *n; i++) {
+    arr[i] = read_unsigned_int();
+  }
+  return arr;
+}
+
+void show_arr(int *arr, int n) {
+  for (int i = 0; i < n; i++)
+    printf(" %d ", arr[i]);
+  putchar('\n');
+}
+
 /* -------------- 1 ---------------- */
 int ex1() {
   int max = 0;
@@ -343,7 +360,7 @@ char charMaisfreq(char s[]) {
   int i, j;
   for (i = 0; s[i] != '\0'; i++) {
     unsigned int count = 0;
-    for (j = 0; s[j] != '\0'; j++) {
+    for (j = i; s[j] != '\0'; j++) {
       if (s[j] == s[i])
         count++;
     }
@@ -695,6 +712,249 @@ void ex25() {
   scanf("%s", first);
   limpaEspacos(first);
   printf("String sem sucessivos espacos: %s\n\n", first);
+}
+
+/* -------------- 26 ---------------- */
+void insere(int v[], int N, int x) {
+  int i;
+  for (i = N - 1; v[i] >= x && i >= 0; i--)
+    v[i + 1] = v[i];
+  v[i + 1] = x;
+}
+
+void ex26() {
+  int example[20] = {1, 2, 4, 4, 6, 7, 8, 14, 20};
+  int n = 9;
+  printf("\nExemplos\n");
+
+  printf("\nInserir 23\n");
+  show_arr(example, n);
+  insere(example, n, 23);
+  n++;
+  show_arr(example, n);
+
+  printf("\nInserir 4\n");
+  show_arr(example, n);
+  insere(example, n, 4);
+  n++;
+  show_arr(example, n);
+
+  printf("\nInserir 0\n");
+  show_arr(example, n);
+  insere(example, n, 0);
+  n++;
+  show_arr(example, n);
+}
+
+/* -------------- 27 ---------------- */
+// humm humm +-
+void merge(int r[], int a[], int b[], int na, int nb) {
+  int ia = 0, ib = 0, ir = 0;
+
+  while (ia < na && ib < nb) {
+    if (a[ia] > b[ib]) {
+      r[ir] = b[ib++];
+    } else {
+      r[ir] = a[ia++];
+    }
+    ir++;
+  }
+  if (ia == na) {
+    for (; ib < nb; ib++, ir++)
+      r[ir] = b[ib];
+  } else {
+    for (; ib < na; ia++, ir++)
+      r[ir] = a[ia];
+  }
+}
+
+/* -------------- 28 ---------------- */
+int crescente(int a[], int i, int j) {
+  int fail = 1;
+  for (; i < j && fail; i++) {
+    fail = a[i] <= a[i + 1];
+  }
+  return fail;
+}
+
+void ex28() {
+  int n;
+  int *arr = read_array(&n);
+  printf("Posicao inicial: \n");
+  int i = read_unsigned_int();
+  printf("Posicao final: \n");
+  int j = read_unsigned_int();
+  if (i > j || i < 0 || j < 0 || j > n) {
+    printf("Posicoes invalidas\n");
+    return;
+  }
+  show_arr(arr, n);
+  printf("Entre %d %d é crescente %d\n", i, j, crescente(arr, i, j));
+  free(arr);
+}
+
+/* -------------- 29 ---------------- */
+int retiraNeg(int v[], int n) {
+  int i, j = 0;
+  for (i = 0; i < n; i++) {
+    if (v[i] >= 0) {
+      v[j++] = v[i];
+    }
+  }
+  return j;
+}
+
+void ex29() {
+  int example[9] = {-1, 2, -4, 4, 6, -7, -8, 14, -20};
+  int n = 9;
+  printf("\nExemplos\n");
+  show_arr(example, n);
+  n = retiraNeg(example, n);
+  show_arr(example, n);
+}
+
+/* -------------- 30 --------------- */
+int menosFreq(int v[], int n) {
+  if (n <= 0)
+    return 0;
+  int menosFreq = v[0], count;
+  int min = 0, i, aux;
+  for (i = 0; i < n && v[i] == menosFreq; i++, min++)
+    ;
+  while (i < n) {
+    count = 0;
+    aux = v[i];
+    for (; i < n && v[i] == aux; i++, count++)
+      ;
+    if (count < min) {
+      min = count;
+      menosFreq = aux;
+    }
+  }
+  return menosFreq;
+}
+
+void ex30() {
+  int n;
+  int *arr = read_array(&n);
+  show_arr(arr, n);
+  printf("Menos frequente : %d\n", menosFreq(arr, n));
+  free(arr);
+}
+
+/* -------------- 31 --------------- */
+int maisFreq(int v[], int n) {
+  if (n <= 0)
+    return 0;
+  int maisFreq = v[0], count;
+  int max = 0, i, aux;
+  for (i = 0; i < n && v[i] == maisFreq; i++, max++)
+    ;
+  while (i < n) {
+    count = 0;
+    aux = v[i];
+    for (; i < n && v[i] == aux; i++, count++)
+      ;
+    if (count > max) {
+      max = count;
+      maisFreq = aux;
+    }
+  }
+  return maisFreq;
+}
+
+void ex31() {
+  int n;
+  int *arr = read_array(&n);
+  show_arr(arr, n);
+  printf("Mais frequente : %d\n", maisFreq(arr, n));
+  free(arr);
+}
+
+/* -------------- 32 --------------- */
+int maxCresc(int v[], int n) {
+  if (n <= 0)
+    return 0;
+  int max = 0, i = 0, count;
+  while (i < n) {
+    count = 1;
+    for (; i < n && v[i] > v[i + 1]; i++)
+      ;
+
+    for (; i < n && v[i] <= v[i + 1]; i++, count++)
+      ;
+    if (count > max) {
+      max = count;
+    }
+  }
+  return max;
+}
+void ex32() {
+  int n;
+  int *arr = read_array(&n);
+  show_arr(arr, n);
+  printf("Máximo frequente : %d\n", maxCresc(arr, n));
+  free(arr);
+}
+
+/* -------------- 33 --------------- */
+int elimElem(int v[], int n, int x, int i) {
+  if (n <= 0)
+    return 0;
+  int j = i;
+
+  while (i < n) {
+    if (x != v[i]) {
+      v[j] = v[i];
+      j++;
+    }
+    i++;
+  }
+  return j;
+}
+
+int elimRep(int v[], int n) {
+  if (n <= 0)
+    return 0;
+  int i = 0;
+  for (; i < n; i++) {
+    n = elimElem(v, n, v[i], i + 1);
+  }
+  return n;
+}
+
+void ex33() {
+  int n;
+  int *arr = read_array(&n);
+  show_arr(arr, n);
+  n = elimRep(arr, n);
+  show_arr(arr, n);
+  free(arr);
+}
+
+/* -------------- 34 --------------- */
+int elimRepOrd(int v[], int n) {
+  if (n <= 0)
+    return 0;
+  int i = 1, j = 1;
+  int last = v[0];
+  for (; i < n; i++) {
+    if (last != v[i]) {
+      last = v[i];
+      v[j] = v[i];
+      j++;
+    }
+  }
+  return j;
+}
+
+void ex34() {
+  int n;
+  int *arr = read_array(&n);
+  show_arr(arr, n);
+  n = elimRepOrd(arr, n);
+  show_arr(arr, n);
+  free(arr);
 }
 
 /* -------------- main ---------------- */
