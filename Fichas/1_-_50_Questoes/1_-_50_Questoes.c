@@ -531,6 +531,172 @@ void ex19() {
          sufPref(first, second));
 }
 
+/* -------------- 20 ---------------- */
+int contaPal(char s[]) {
+  int i = 0, palavras = 0;
+  char last = '\0';
+  for (; s[i] != '\0'; i++) {
+    if (s[i] != ' ' && (last == '\0' || last == ' '))
+      palavras++;
+    last = s[i];
+  }
+  return palavras;
+}
+
+void ex20() {
+  char *example = "Isto é um exempplo a a bbb";
+  printf("Exemplo:\n%s\n", example);
+  printf("Existem %d palavras\n\n", contaPal(example));
+  char first[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  printf("\nExistem %d palavras\n", contaPal(first));
+}
+
+/* -------------- 21---------------- */
+bool isVogal(char s) {
+  return s == 'a' || s == 'A' || s == 'e' || s == 'E' || s == 'i' || s == 'I' ||
+         s == 'o' || s == 'O' || s == 'u' || s == 'U';
+}
+
+int contaVogais(char s[]) {
+  int count = 0;
+  for (int i = 0; s[i] != '\0'; i++)
+    if (isVogal(s[i]))
+      count++;
+  return count;
+}
+
+void ex21() {
+  char *example = "Isto é um exempplo a a bbb";
+  printf("Exemplo:\n%s\n", example);
+  printf("Existem %d vogais\n\n", contaVogais(example));
+  char first[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  printf("\nExistem %d vogais\n", contaVogais(first));
+}
+
+/* -------------- 22---------------- */
+int contida(char a[], char b[]) {
+  int i = 0, j = 0, espacos1 = 0, espacos2 = 0;
+  int find = 0;
+  while (a[j] != '\0' && b[i] != '\0') {
+    find = 0;
+    for (; b[i] != '\0' && a[j] != '\0'; i++) {
+      if (b[i] == ' ')
+        espacos2 = 1;
+      if (a[j] == b[i]) {
+        j++;
+        find = 1;
+      }
+    }
+    while (a[j] != '\0' && a[j] == ' ') {
+      j++;
+      espacos1 = 1;
+    }
+    if (b[i] == '\0' && a[j] != '\0' && find)
+      i = 0;
+  }
+  return a[j] == '\0' &&
+         (espacos2 == espacos1 || (espacos1 == 0 && espacos2 == 1));
+}
+
+void ex22() {
+  char *example = "\"Braga\" \"Bracara augusta\"";
+  printf("Exemplo:\n%s\n", example);
+  printf("A primeira string encontra se contida na segunda: %d\n\n",
+         contida("Braga", "Bracara augusta"));
+
+  char first[SIZE], second[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  printf("\nString s2\n");
+  scanf("%s", second);
+  printf("A primeira string encontra se contida na segunda: %d\n\n",
+         contida(first, second));
+}
+
+/* -------------- 23 ---------------- */
+int palindroma(char s[]) {
+  int len = strlen(s) - 1, mean = len / 2;
+  int fail = 1;
+  int i;
+  for (i = 0; i <= mean && fail; i++) {
+    fail = s[i] == s[len - i];
+  }
+  return fail;
+}
+
+void ex23() {
+  char *example = "saias";
+  printf("Exemplo:\n%s\n", example);
+  printf("A palavra é palindroma: %d\n\n", palindroma(example));
+  char first[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  printf("A palavra é palindroma: %d\n\n", palindroma(first));
+}
+
+/* -------------- 24 ---------------- */
+int remRep(char x[]) {
+  int i, j = 0;
+  char last = '\0';
+  for (i = 0; x[i] != '\0'; i++) {
+    if (last != x[i]) {
+      x[j] = x[i];
+      j++;
+      last = x[i];
+    }
+  }
+  if (i != j)
+    x[j] = '\0';
+  return j;
+}
+
+void ex24() {
+  char example[SIZE] = "aaaa bbb bcjafd aaaaa";
+  printf("Exemplo:\n%s\n", example);
+  remRep(example);
+  printf("String sem sucessivas repetições: %s\n\n", example);
+  char first[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  remRep(first);
+  printf("String sem sucessivas repetições: %s\n\n", first);
+}
+
+/* -------------- 25 ---------------- */
+int limpaEspacos(char x[]) {
+  int i, j = 0;
+  char last = '\0';
+  for (i = 0; x[i] != '\0'; i++) {
+    if (x[i] != ' ') {
+      x[j] = x[i];
+      j++;
+    } else if (last != ' ') {
+      x[j] = x[i];
+      j++;
+    }
+    last = x[i];
+  }
+  if (j != i)
+    x[j] = '\0';
+  return j;
+}
+
+void ex25() {
+  char example[SIZE] = "  aaaa  bbb bcjafd    aaaaa";
+  printf("Exemplo:\n%s\n", example);
+  limpaEspacos(example);
+  printf("String sem sucessivas repetições: %s\n\n", example);
+  char first[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  limpaEspacos(first);
+  printf("String sem sucessivos espacos: %s\n\n", first);
+}
+
 /* -------------- main ---------------- */
 int main(void) {
   exec_menu();

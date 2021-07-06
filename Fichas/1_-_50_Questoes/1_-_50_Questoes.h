@@ -20,5 +20,11 @@ void ex16();
 void ex17();
 void ex18();
 void ex19();
+void ex20();
+void ex21();
+void ex22();
+void ex23();
+void ex24();
+void ex25();
 
 #endif // 1_-_50_QUESTOES_H_

@@ -13,7 +13,7 @@ Some material
   - [ ] Ficha 9
   - [ ] Ficha 10
 + 0-50 questões:
-  - Feitas: 1-19
+  - Feitas: 1-25
 
 + 51-100 questões:
   - Feitas: 0

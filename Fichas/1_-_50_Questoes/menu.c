@@ -44,18 +44,19 @@ void show_menu_11_20() {
   printf("18. Calcula o maior prefixo comum entre duas strings\n");
   printf("19. Calcula o maior prefixo de s1 que é sufixo de s2 entre duas "
          "strings\n");
-  printf("20. \n");
+  printf("20. Calcula quantas palavras existem numa certa string\n");
   printf("-------------------------------------------------\n");
 }
 
 void show_menu_21_30() {
   printf("\n\n--------------------MENU-------------------------\n");
   printf("0.  Go back\n");
-  printf("21. \n");
-  printf("22. \n");
-  printf("23. \n");
-  printf("24. \n");
-  printf("25. \n");
+  printf("21. Calcula quantas vogais existem numa certa string\n");
+  printf("22. Verifica se a primeira string encontra-se contida na segunda "
+         "string\n");
+  printf("23. Testa se uma dada palavra é palíndrome\n");
+  printf("24. Elimina de uma dada string todos os caracteres sucessivos.\n");
+  printf("25. Elimina de uma dada string todos os espaços sucessivos.\n");
   printf("26. \n");
   printf("27. \n");
   printf("28. \n");
@@ -169,6 +170,7 @@ void exec_questions_11_20(int option) {
     ex19();
     break;
   case 20:
+    ex20();
     break;
   default:
     printf("Opcao invalida\n");
@@ -181,14 +183,19 @@ void exec_questions_21_30(int option) {
     printf("Exit sucedd\n");
     break;
   case 21:
+    ex21();
     break;
   case 22:
+    ex22();
     break;
   case 23:
+    ex23();
     break;
   case 24:
+    ex24();
     break;
   case 25:
+    ex25();
     break;
   case 26:
     break;
@@ -290,33 +297,33 @@ void exec_menu_11_20() {
 void exec_menu_21_30() {
   int option = -1;
   while (option != sair) {
-    show_menu_11_20();
+    show_menu_21_30();
     printf("Opcao: ");
     scanf("%d", &option);
     putchar('\n');
-    exec_questions_11_20(option);
+    exec_questions_21_30(option);
   }
 }
 
 void exec_menu_31_40() {
   int option = -1;
   while (option != sair) {
-    show_menu_11_20();
+    show_menu_31_40();
     printf("Opcao: ");
     scanf("%d", &option);
     putchar('\n');
-    exec_questions_11_20(option);
+    exec_questions_31_40(option);
   }
 }
 
 void exec_menu_41_50() {
   int option = -1;
   while (option != sair) {
-    show_menu_11_20();
+    show_menu_41_50();
     printf("Opcao: ");
     scanf("%d", &option);
     putchar('\n');
-    exec_questions_11_20(option);
+    exec_questions_41_50(option);
   }
 }
 
@@ -339,6 +346,9 @@ void exec_questions(int option) {
     break;
   case 5:
     exec_menu_41_50();
+    break;
+  default:
+    printf("Opcao invalida\n");
     break;
   }
 }
