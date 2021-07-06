@@ -1,6 +1,8 @@
-#include "1_-_50_Questoes.h"
 #include "menu.h"
+
 #include <stdio.h>
+
+#include "1_-_50_Questoes.h"
 
 /* -------------------MENU---------------------------- */
 void show_menu_1_10() {
@@ -35,10 +37,13 @@ void show_menu_11_20() {
   printf("14. Determinar o caracter mais frequente numa dada string\n");
   printf("15. Determinar o máximo de caracter iguais consecutivos numa dada "
          "string\n");
-  printf("16. \n");
-  printf("17. \n");
-  printf("18. \n");
-  printf("19. \n");
+  printf(
+      "16. Determinar o máximo de caracter diferentes consecutivos numa dada "
+      "string\n");
+  printf("17. Calcula o maior sufixo comum entre duas strings\n");
+  printf("18. Calcula o maior prefixo comum entre duas strings\n");
+  printf("19. Calcula o maior prefixo de s1 que é sufixo de s2 entre duas "
+         "strings\n");
   printf("20. \n");
   printf("-------------------------------------------------\n");
 }
@@ -152,12 +157,16 @@ void exec_questions_11_20(int option) {
     ex15();
     break;
   case 16:
+    ex16();
     break;
   case 17:
+    ex17();
     break;
   case 18:
+    ex18();
     break;
   case 19:
+    ex19();
     break;
   case 20:
     break;

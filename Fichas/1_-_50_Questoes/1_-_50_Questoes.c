@@ -397,6 +397,140 @@ void ex15() {
   printf("Iguais consecutivos: %d\n", iguaisConsecutivos(input));
 }
 
+/* -------------- 16 ---------------- */
+//.
+bool existe_array(char s[], int n, char elem) {
+  bool fail = false;
+  for (int i = 0; !fail && i < n; i++) {
+    if (elem == s[i])
+      fail = true;
+  }
+  return fail;
+}
+
+int diffConsecutivos(char s[]) {
+  if (!s || s[0] == '\0')
+    return 0;
+
+  int max = 0, count = 0;
+  int len = strlen(s) - 1;
+  char last = '\0';
+  char *arr = malloc(len * (sizeof(char *)));
+
+  int i;
+  for (i = 0; s[i] != '\0'; i++) {
+    if (s[i] == ' ')
+      continue;
+    if (s[i] != last) {
+      if (!existe_array(s, count, s[i])) {
+        arr[count] = s[i];
+        count++;
+      }
+      last = s[i];
+    } else {
+      if (max < count)
+        max = count;
+      arr[0] = s[i];
+      count = 1;
+    }
+  }
+  if (max < count)
+    max = count;
+  free(arr);
+  return max;
+}
+
+void ex16() {
+  char input[SIZE];
+  printf("Word:\n");
+  scanf("%s", input);
+  printf("\nDiferentes consecutivos: %d\n", diffConsecutivos(input));
+}
+
+/* -------------- 17 ---------------- */
+int maiorPrefixo(char s1[], char s2[]) {
+  int i = 0, resultado = 0;
+  for (; s1[i] != '\0' && s2[i] != '\0'; i++) {
+    if (s1[i] == s2[i])
+      resultado++;
+    else
+      break;
+  }
+  return resultado;
+}
+
+void ex17() {
+  char first[SIZE], second[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  printf("\nString s2\n");
+  scanf("%s", second);
+  printf("\nO comprimento do maior prefixo é %d\n",
+         maiorPrefixo(first, second));
+}
+
+/* -------------- 18 ---------------- */
+int maiorSufixo(char s1[], char s2[]) {
+  int i, x, resultado = 0;
+
+  for (i = 0; s1[i] != '\0' && s1[i + 1] != '\0'; i++)
+    ;
+  for (x = 0; s2[x] != '\0' && s2[x + 1] != '\0'; x++)
+    ;
+
+  while (i >= 0 && x >= 0 && s1[i] == s2[x]) {
+    i--;
+    x--;
+    resultado++;
+  }
+  return resultado;
+}
+
+void ex18() {
+  char first[SIZE], second[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  printf("\nString s2\n");
+  scanf("%s", second);
+  printf("\nO comprimento do maior sufixo é %d\n", maiorSufixo(first, second));
+}
+
+/* -------------- 19 ---------------- */
+int sufPref(char s1[], char s2[]) {
+  int max = 0, count;
+  int i = 0, j = 0;
+
+  while (s1[i] != '\0') {
+    count = 0;
+    j = 0;
+
+    for (; s1[i] != '\0' && s1[i] != s2[j]; i++)
+      ;
+
+    while (s1[i] != '\0' && s2[j] != '\0' && s1[i] == s2[j]) {
+
+      count++;
+
+      i++;
+      j++;
+    }
+    if (count > max && s1[i] == '\0')
+      max = count;
+  }
+
+  return max;
+}
+
+void ex19() {
+  char first[SIZE], second[SIZE];
+  printf("String s1:\n");
+  scanf("%s", first);
+  printf("\nString s2\n");
+  scanf("%s", second);
+  printf("\nO comprimento do maior sufixo de s1 que é prefixo de s2 é %d\n",
+         sufPref(first, second));
+}
+
 /* -------------- main ---------------- */
 int main(void) {
   exec_menu();
