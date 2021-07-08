@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdbool.h> // boolean
 #include <stdio.h>
 #include <stdlib.h> // malloc
@@ -763,7 +764,7 @@ void merge(int r[], int a[], int b[], int na, int nb) {
     for (; ib < nb; ib++, ir++)
       r[ir] = b[ib];
   } else {
-    for (; ib < na; ia++, ir++)
+    for (; ia < na; ia++, ir++)
       r[ir] = a[ia];
   }
 }
@@ -955,6 +956,268 @@ void ex34() {
   n = elimRepOrd(arr, n);
   show_arr(arr, n);
   free(arr);
+}
+
+/* -------------- 35 --------------- */
+int comunsOrd(int a[], int na, int b[], int nb) {
+  int count = 0, ia = 0, ib = 0;
+  while (ia < na && ib < nb) {
+    if (a[ia] == b[ib]) {
+      count++;
+      ia++;
+      ib++;
+    } else if (a[ia] > b[ib])
+      ib++;
+    else
+      ia++;
+  }
+  return count;
+}
+
+/* -------------- 36 --------------- */
+int ver_iguais(int valor, int b[], int nb) {
+  int i = 0;
+  for (; i < nb; i++)
+    if (valor == b[i])
+      return 1;
+  return 0;
+}
+
+int comuns(int a[], int na, int b[], int nb) {
+  int i = 0, x;
+  int conta = 0;
+  for (; i < na; i++) {
+    x = ver_iguais(a[i], b, nb);
+    if (x > 0)
+      conta++;
+  }
+  return conta;
+}
+
+/* -------------- 37 --------------- */
+int minInd(int v[], int n) {
+  if (n <= 0)
+    return -1;
+  int min = v[0], iMin = 0;
+  for (int i = 1; i < n; i++)
+    if (v[i] < min) {
+      min = v[i];
+      iMin = i;
+    }
+  return iMin;
+}
+
+/* -------------- 38 --------------- */
+void somasAc(int v[], int Ac[], int N) {
+  if (N <= 0)
+    return;
+  int soma = 0;
+  for (int i = 0; i < N; i++) {
+    soma += v[i];
+    Ac[i] = soma;
+  }
+}
+
+/* -------------- 39 --------------- */
+int triSup(int N, float m[N][N]) {
+  int fail = 1;
+  int i = 1, j = 0;
+  while (i < N && fail) {
+    j = 0;
+    while (j < i && fail) {
+      fail = m[i][j] == 0;
+      j++;
+    }
+    i++;
+  }
+  return fail;
+}
+
+/* -------------- 40 --------------- */
+void transposta(int N, float m[N][N]) {
+  int i = 0, j = 0;
+  float w[N][N];
+
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++)
+      w[j][i] = m[i][j];
+  }
+
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++)
+      m[i][j] = w[i][j];
+  }
+}
+
+/* -------------- 41 --------------- */
+void addTo(int N, int M, int a[N][M], int b[N][M]) {
+  int i = 0, j = 0;
+  for (; i < N; i++) {
+    for (j = 0; j < M; j++)
+      a[i][j] += b[i][j];
+  }
+}
+
+/* -------------- 42 --------------- */
+int unionSet(int N, int v1[N], int v2[N], int r[N]) {
+  int i;
+  for (i = 0; i < N; i++) {
+    if (v1[i] || v2[i])
+      r[i] = 1;
+    else
+      r[i] = 0;
+  }
+  return i;
+}
+
+/* -------------- 43 --------------- */
+int intersectSet(int N, int v1[N], int v2[N], int r[N]) {
+  int i;
+  for (i = 0; i < N; i++) {
+    if (v1[i] && v2[i])
+      r[i] = 1;
+    else
+      r[i] = 0;
+  }
+  return i;
+}
+
+/* -------------- 44 --------------- */
+int intersectMSet(int N, int v1[N], int v2[N], int r[N]) {
+  int i;
+  for (i = 0; i < N; i++) {
+    if (v1[i] < v2[i])
+      r[i] = v1[i];
+    else
+      r[i] = v2[i];
+  }
+  return i;
+}
+
+/* -------------- 45 --------------- */
+int unionMSet(int N, int v1[N], int v2[N], int r[N]) {
+  int i;
+  for (i = 0; i < N; i++) {
+    if (v1[i] < v2[i])
+      r[i] = v2[i];
+    else
+      r[i] = v1[i];
+  }
+  return i;
+}
+
+/* -------------- 46 --------------- */
+int cardinalMSet(int N, int v[N]) {
+  int i = 0, resul = 0;
+  for (i = 0; i < N; i++)
+    resul += v[i];
+  return resul;
+}
+
+/* -------------- 47 --------------- */
+typedef enum movimento { Norte, Oeste, Sul, Este } Movimento;
+typedef struct posicao {
+  int x, y;
+} Posicao;
+
+Posicao posFinal(Posicao inicial, Movimento mov[], int N) {
+  int i = 0;
+  for (; i < N; i++) {
+    switch (mov[i]) {
+    case Norte:
+      inicial.y++;
+      break;
+    case Sul:
+      inicial.y--;
+      break;
+    case Este:
+      inicial.x++;
+      break;
+    case Oeste:
+      inicial.x--;
+      break;
+    }
+  }
+  return inicial;
+}
+
+/* -------------- 48 --------------- */
+int caminho(Posicao inicial, Posicao final, Movimento mov[], int N) {
+  int x, y, xi, xf, yi, yf, conta = 0, i = 0;
+  xi = inicial.x;
+  xf = final.x;
+  yi = inicial.y;
+  yf = final.y;
+  x = xi - xf;
+  y = yi - yf;
+  while (x != 0) {
+    for (; x > 0; i++) {
+      mov[i] = Este;
+      conta++;
+      x--;
+    }
+    for (; x < 0; i++) {
+      mov[i] = Oeste;
+      conta++;
+      x--;
+    }
+  }
+  while (y != 0) {
+    for (; y > 0; i++) {
+      mov[i] = Norte;
+      conta++;
+      y--;
+    }
+    for (; y < 0; i++) {
+      mov[i] = Sul;
+      conta++;
+      y--;
+    }
+  }
+  if (conta > N)
+    conta = -1;
+  return conta;
+}
+
+/* -------------- 49 --------------- */
+float distancia(Posicao pos) {
+  int x, y;
+  float distancia;
+  x = pos.x;
+  y = pos.y;
+  distancia = sqrt(x * x + y * y);
+  return distancia;
+}
+
+int maiscentral(Posicao pos[], int N) {
+  int i, indice = 0;
+  float dist_min, dist;
+  dist_min = distancia(pos[0]);
+  for (i = 0; i < N; i++) {
+    dist = distancia(pos[i]);
+    if (dist < dist_min) {
+      dist_min = dist;
+      indice = i;
+    }
+  }
+  return indice;
+}
+
+/* -------------- 50 --------------- */
+int ver_vizinho(Posicao m, Posicao n) {
+  return ((m.x - n.x == 1 || m.x - n.x == -1) && m.y - n.y == 0) ||
+         ((m.y - n.y == 1 || m.y - n.y == -1) && m.x - n.x == 0);
+}
+
+int vizinhos(Posicao p, Posicao pos[], int N) {
+  int i, ver, conta = 0;
+
+  for (i = 0; i < N; i++) {
+    ver = ver_vizinho(p, pos[i]);
+    if (ver == 1)
+      conta++;
+  }
+  return conta;
 }
 
 /* -------------- main ---------------- */

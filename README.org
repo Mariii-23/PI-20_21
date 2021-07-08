@@ -13,8 +13,10 @@ Some material
   - [ ] Ficha 9
   - [ ] Ficha 10
 + 0-50 questões:
-  - Feitas: 1-34
+  - Feitas no menu: 1-34 (Até aqui encontram-se no menu, depois preguiça só em código)
+  - Feitas sem menu: 35-50
   - Alguns erros : 27
+    Todas as restantes passam nos testes
 
 + 51-100 questões:
   - Feitas: 0
