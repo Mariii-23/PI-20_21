@@ -748,7 +748,6 @@ void ex26() {
 }
 
 /* -------------- 27 ---------------- */
-// humm humm +-
 void merge(int r[], int a[], int b[], int na, int nb) {
   int ia = 0, ib = 0, ir = 0;
 
