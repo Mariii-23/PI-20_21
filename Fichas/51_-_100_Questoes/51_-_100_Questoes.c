@@ -320,6 +320,88 @@ LInt Nforward(LInt l, int N) {
   return l;
 }
 
+/* -------------- 22 --------------- */
+int listToArray(LInt l, int v[], int N) {
+  int i = 0;
+  while (l && i < N) {
+    v[i++] = l->valor;
+    l = l->prox;
+  }
+  return i;
+}
+
+/* -------------- 23 --------------- */
+LInt arrayToList(int v[], int N) {
+  LInt novo, *e = &novo;
+  int i;
+  for (i = 0; i < N; i++) {
+    (*e) = malloc(sizeof(struct lligada));
+    (*e)->valor = v[i];
+    e = &((*e)->prox);
+  }
+  if (i != 0)
+    *e = NULL;
+  else
+    novo = NULL;
+  return novo;
+}
+
+/* -------------- 24 --------------- */
+LInt somasAcL(LInt l) {
+  LInt novo, *e = &novo;
+  int soma = 0;
+  while (l) {
+    soma += l->valor;
+    (*e) = malloc(sizeof(struct lligada));
+    (*e)->valor = soma;
+    e = &((*e)->prox);
+    l = l->prox;
+  }
+
+  if (soma != 0)
+    *e = NULL;
+  else
+    novo = NULL;
+  return novo;
+}
+
+/* -------------- 25 --------------- */
+void remreps(LInt l) {
+  if (l) {
+    while (l->prox) {
+      if (l->prox->valor == l->valor) {
+        LInt temp = l->prox;
+        l->prox = l->prox->prox;
+        free(temp);
+      } else
+        l = l->prox;
+    }
+  }
+}
+
+/* -------------- 26 --------------- */
+LInt rotateL(LInt l) {
+  if (!l || !(l->prox))
+    return l;
+  LInt temp = l;
+  LInt list = l->prox;
+  while (temp->prox)
+    temp = temp->prox;
+  temp->prox = l;
+  l->prox = NULL;
+  return list;
+}
+
+/* -------------- 27 --------------- */
+LInt parte(LInt l) {
+  if (!l || !l->prox)
+    return NULL;
+  LInt newL = l->prox;
+  l->prox = l->prox->prox;
+  newL->prox = parte(l->prox);
+  return newL;
+}
+
 /* -------------- MAIN --------------- */
 int main(void) {
   printf("Helloooo\n");
