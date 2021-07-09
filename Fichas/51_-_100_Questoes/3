@@ -640,116 +640,17 @@ ABin cloneMirror(ABin a) {
 }
 
 /* -------------- 44 -------------- */
-int addOrd(ABin *a, int x) {
-  while (*a) {
-    if ((*a)->valor == x)
-      return 1;
-    a = (*a)->valor > x ? &((*a)->esq) : &((*a)->dir);
-  }
-  ABin new = malloc(sizeof(struct nodo));
-  new->valor = x;
-  new->esq = new->dir = NULL;
-  (*a) = new;
-  return 0;
-}
-
-/* -------------- 45 -------------- */
-int lookupAB(ABin a, int x) {
-  while (a) {
-    if (a->valor == x)
-      return 1;
-    a = a->valor > x ? a->esq : a->dir;
-  }
-  return 0;
-}
-
-/* -------------- 46 -------------- */
-int depthOrd(ABin a, int x) {
-  int i = 1;
-  while (a) {
-    if (a->valor == x)
-      return i;
-    a = a->valor > x ? a->esq : a->dir;
-    i++;
-  }
-  return -1;
-}
-
-/* -------------- 47 -------------- */
-int maiorAB(ABin a) {
-  if (!a)
-    return -1;
-  while (a->dir) {
-    a = a->dir;
-  }
-  return a->valor;
-}
-
-/* -------------- 48 -------------- */
-void removeMaiorA(ABin *a) {
-  if (!*a)
-    return;
-  while ((*a)->dir) {
-    a = &(*a)->dir;
-  }
-  ABin l = *a;
-  free(*a);
-  *a = l->esq;
-}
-
-/* -------------- 49 -------------- */
-int quantosMaiores(ABin a, int x) {
-  if (!a)
+int addOrd (ABin *a, int x) {
+    while(*a) {
+        if((*a)->valor == x) return 1;
+        a = (*a)->valor > x ?  &((*a)->esq) : &((*a)->dir);
+    }
+    ABin new = malloc(sizeof(struct nodo));
+    new->valor = x;
+    new->esq = new->dir = NULL;
+    (*a) = new;
     return 0;
-  if (a->valor <= x)
-    return quantosMaiores(a->dir, x);
-  else
-    return 1 + quantosMaiores(a->esq, x) + quantosMaiores(a->dir, x);
 }
-
-/* -------------- 50 -------------- */
-void listToBTree(LInt l, ABin *a) {
-  if (!l)
-    return;
-  ABin new = malloc(sizeof(struct nodo));
-  int meio = length(l) / 2;
-  LInt temp = l, prev = NULL;
-  int i;
-  for (i = 0; i < meio; i++) {
-    prev = temp;
-    temp = temp->prox;
-  }
-  new->valor = temp->valor;
-  new->esq = new->dir = NULL;
-  if (prev)
-    prev->prox = NULL;
-
-  if (l != temp)
-    listToBTree(l, &(new->esq));
-  if (temp->prox)
-    listToBTree(temp->prox, &(new->dir));
-  (*a) = new;
-}
-
-/* -------------- 51 -------------- */
-// nao foi feita por mim
-// preguiça
-int deProcuraAux(ABin a, int x, int maior) {
-  if (!a)
-    return 1;
-  if ((maior && a->valor < x) || (!maior && a->valor > x))
-    return 0;
-  return deProcuraAux(a->esq, x, maior) && deProcuraAux(a->dir, x, maior);
-}
-
-int deProcura(ABin a) {
-  if (!a)
-    return 1;
-  int b = deProcuraAux(a->esq, a->valor, 0) && deProcura(a->esq);
-  int c = deProcuraAux(a->dir, a->valor, 1) && deProcura(a->dir);
-  return b && c;
-}
-
 /* -------------- MAIN --------------- */
 int main(void) {
   printf("Helloooo\n");
