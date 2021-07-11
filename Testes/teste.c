@@ -14,18 +14,44 @@ int sumhtpo(int n) {
   return r;
 }
 
-int sumhtpo1(int n) {
-  int r = 0, i = 0;
-  while (n != 1 && i < 100) {
-    r += n;
-    if (n % 2 == 0)
-      n = n / 2;
-    else
-      n = 1 + (3 * n);
-    i++;
+void insere_array(int v[], int n, int elem) {
+  for (int i = 0; i < n; i++) {
+    if (v[i] < elem)
+      v[i] = elem;
   }
-  if (i == 100)
-    return r;
+}
+
+int max_array(int v[], int n) {
+  if (n < 1)
+    return -1;
+  int max = v[0];
+  for (int i = 1; i < n; i++) {
+    if (v[i] > max)
+      max = v[i];
+  }
+  return max;
+}
+
+int sumhtpo1(int n) {
+  int r = 0, i = 0, last[100] = {0};
+  while (n != 1) {
+    r += n;
+    if (n % 2 == 0) {
+      n = n / 2;
+    } else
+      n = 1 + (3 * n);
+
+    if (i < 100) {
+      last[i] = n;
+      i++;
+      i++;
+    } else {
+      insere_array(last, 100, n);
+    }
+  }
+  if (i >= 100)
+    // returnar o menor elemento do array
+    return max_array(last, i);
   else
     return -1;
 }
@@ -34,9 +60,8 @@ int sumhtpo1(int n) {
 int moda(int v[], int N, int *m) {
   if (N < 1)
     return 0;
-  // int *a = malloc(sizeof(int) * N);
   int i = 1, max = 1;
-  m[0] = v[0];
+  *m = v[0];
 
   for (int j = 1; j < N; j++) {
     int count = 0;
@@ -46,11 +71,10 @@ int moda(int v[], int N, int *m) {
     }
 
     if (count > max) {
-      m[0] = v[j];
+      *m = v[j];
       i = 1;
       max = count;
     } else if (count == max) {
-      m[i] = v[j];
       i++;
     }
   }
@@ -67,7 +91,7 @@ typedef struct lligada {
 int procura(LInt *l, int x) {
   LInt *e = l;
 
-  while (*e && (*e)->valor == x) {
+  while (*e && (*e)->valor != x) {
     e = &((*e)->prox);
   }
 
@@ -105,7 +129,7 @@ void caminho(ABin a) {
   int last = a->valor;
   while (a->pai) {
     a = a->pai;
-    if (a->valor > last) {
+    if (a->esq && a->esq->valor == last) {
       printf("esq\n");
     } else {
       printf("dir\n");

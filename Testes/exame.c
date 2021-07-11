@@ -81,6 +81,15 @@ ABin next(ABin a) {
     return a->pai;
   else if (!a->dir && a->pai->esq)
     return a->pai->pai;
+  else if (a->dir && a->pai->esq)
+    return a->pai->esq;
+  else if (a->dir && a->dir->esq) {
+    ABin last = a->dir->esq;
+    a = last;
+    while ((a = a->esq) != NULL)
+      last = a;
+    return a;
+  }
 
   return a->dir;
 }
@@ -100,8 +109,12 @@ int acrescentaPal(Palavras *p, char *pal) {
     int i = strcmp((*p)->palavra, pal);
     if (i == 0) {
       (*p)->nOcorr++;
-      if ((*p)->dir && (*p)->dir->nOcorr < (*p)->nOcorr)
-        rodaDireita(p);
+      while (((*p)->dir && (*p)->esq->nOcorr > (*p)->nOcorr) ||
+             ((*p)->esq && (*p)->dir->nOcorr > (*p)->nOcorr))
+        if ((*p)->esq->nOcorr > (*p)->nOcorr)
+          rodaDireita(p);
+        else
+          rodaEsquerda(p);
       return (*p)->nOcorr;
     } else if (i > 0)
       p = &((*p)->esq);
