@@ -25,6 +25,7 @@ int remRep(char s[]) {
       s[j] = s[i];
       j++;
     }
+    last = s[i];
   }
   s[j] = '\0';
   return j;

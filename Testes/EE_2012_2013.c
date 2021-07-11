@@ -98,6 +98,7 @@ int quantos(LBloco l) {
   return count;
 }
 
+// esta mal
 int compacta(LBloco *l) {
   if (*l)
     return 0;

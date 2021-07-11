@@ -94,11 +94,12 @@ int minheapOK(ABin a) {
   int fail = 1;
   if (a) {
     if (a->dir && a->esq)
-      fail = a->dir > a && a->esq > a && minheapOK(a->dir) && minheapOK(a->esq);
-    else if (a->dir)
-      fail = a->dir > a && minheapOK(a->dir);
-    else
-      fail = a->esq > a && minheapOK(a->esq);
+      fail = a->dir->valor > a->valor && a->esq->valor > a->valor &&
+             minheapOK(a->dir) && minheapOK(a->esq);
+    else if (a->dir && !a->esq)
+      fail = a->dir->valor > a->valor && minheapOK(a->dir);
+    else if (a->esq && !a->dir)
+      fail = a->esq->valor > a->valor && minheapOK(a->esq);
   }
   return fail;
 }
